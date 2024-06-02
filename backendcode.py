@@ -15,4 +15,5 @@ class Grid:
         self.initGrid()
 
     def initGrid(self):
-        self._grid
+        # create 2D grid (list of lists)
+        self._grid = [[GridPosition.EMPTY for i in range(self._cols)]for i in range(self._rows)]
