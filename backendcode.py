@@ -90,3 +90,21 @@ class Grid:
                 count = 0
             if count == connectN:
                 return True
+        
+        return False
+
+
+# encapsulate the player's information, 
+# more importantly the player's piece color
+
+class Player:
+    # initialize
+    def __init__ (self, name, pieceColor):
+        self._name = name
+        self._pieceColor = pieceColor
+    
+    # methods for players
+    def getName(self):
+        return self._name
+    def getPieceColor(self):
+        return self._pieceColor
