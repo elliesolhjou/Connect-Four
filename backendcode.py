@@ -129,4 +129,20 @@ class Game:
             self._score[player.getName()] = 0
     
     # print board
-    
+    def printBoard(self):
+        print('Board:\n')
+        grid = self._grid.getGrid()
+        for i in range(len(grid)):
+            row= " "
+            for piece in grid[i]:
+                if piece == GridPosition.EMPTY:
+                    row+= '0'
+                elif piece == GridPosition.YELLOW:
+                    row+='Y'
+                elif piece == GridPosition.RED:
+                    row += "R"
+            
+            print(row)
+        
+        print(" ")
+
