@@ -45,4 +45,6 @@ class Grid:
                 self._grid[row][column] = piece
                 return row
             
-    # 
+    # check win status
+    def checkWin(self, connectN, row, col, piece):
+        count = 0
