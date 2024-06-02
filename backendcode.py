@@ -113,3 +113,69 @@ class Player:
 class Game:
     # initialize:
     def __init__(self, grid, connectN, targetScore):
+        self._grid = grid
+        self._connectN = connectN
+        self._targetScore = targetScore
+
+        # Introduce players
+        self._players = [
+            Player('Player 1', GridPosition.YELLOW), 
+            Player('Player 2', GridPosition.RED)
+        ]
+
+        #  initialize scores for each player
+        self._score = {}
+        for player in self._players:
+            self._score[player.getName()] = 0
+    
+    # print board
+    def printBoard(self):
+        print('Board:\n')
+        grid = self._grid.getGrid()
+        for i in range(len(grid)):
+            row= " "
+            for piece in grid[i]:
+                if piece == GridPosition.EMPTY:
+                    row+= '0'
+                elif piece == GridPosition.YELLOW:
+                    row+='Y'
+                elif piece == GridPosition.RED:
+                    row += "R"
+            
+            print(row)
+        
+        print(" ")
+
+    # define move rules
+    def playMoves(self, player):
+        self.printBoard()
+        print(f"{player.getNames()}'s turn")
+        colCount = self._grid.getColumnsCount()
+        moveColumn = int(input(f"Enter Column number between {0} and {colCount-1} to add token"))
+        moveRow = self._grid.placePieces(moveColumn, player.getPieceColor())
+        return (moveRow, moveColumn)
+    
+    # define game round
+    def playRound(self):
+        while True:
+            for player in self._players:
+                row, col = self.playMoves(player)
+                pieceColor = player.getPieceColor()
+                if self._grid.checkWin(self._connectN, row, col, pieceColor):
+                    self._score[player.getName()]+=1
+                    return player
+    
+    def play(self):
+        maxScore = 0
+        winner = None
+        while maxScore < self._targetScore:
+            winner = self.playRound()
+            print(f"{winner.getName()} won the round")
+            maxScore = max(self._score[winner.getName()], maxScore)
+
+            # reset grid
+            self._grid.initGrid()
+        print(f"{winner.getName()} won the game")
+
+
+
