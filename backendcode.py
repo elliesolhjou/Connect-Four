@@ -113,3 +113,20 @@ class Player:
 class Game:
     # initialize:
     def __init__(self, grid, connectN, targetScore):
+        self._grid = grid
+        self._connectN = connectN
+        self._targetScore = targetScore
+
+        # Introduce players
+        self._players = [
+            Player('Player 1', GridPosition.YELLOW), 
+            Player('Player 2', GridPosition.RED)
+        ]
+
+        #  initialize scores for each player
+        self._score = {}
+        for player in self._players:
+            self._score[player.getName()] = 0
+    
+    # print board
+    
