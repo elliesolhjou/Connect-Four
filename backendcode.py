@@ -154,3 +154,28 @@ class Game:
         moveColumn = int(input(f"Enter Column number between {0} and {colCount-1} to add token"))
         moveRow = self._grid.placePieces(moveColumn, player.getPieceColor())
         return (moveRow, moveColumn)
+    
+    # define game round
+    def playRound(self):
+        while True:
+            for player in self._players:
+                row, col = self.playMoves(player)
+                pieceColor = player.getPieceColor()
+                if self._grid.checkWin(self._connectN, row, col, pieceColor):
+                    self._score[player.getName()]+=1
+                    return player
+    
+    def play(self):
+        maxScore = 0
+        winner = None
+        while maxScore < self._targetScore:
+            winner = self.playRound()
+            print(f"{winner.getName()} won the round")
+            maxScore = max(self._score[winner.getName()], maxScore)
+
+            # reset grid
+            self._grid.initGrid()
+        print(f"{winner.getName()} won the game")
+
+
+
