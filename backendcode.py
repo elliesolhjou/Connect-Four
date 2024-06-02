@@ -108,3 +108,8 @@ class Player:
         return self._name
     def getPieceColor(self):
         return self._pieceColor
+
+
+class Game:
+    # initialize:
+    def __init__(self, grid, connectN, targetScore):
