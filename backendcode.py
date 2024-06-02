@@ -45,6 +45,48 @@ class Grid:
                 self._grid[row][column] = piece
                 return row
             
-    # check win status
+    # check win status of players
+    # connectN likely the number of consecutive pieces 
+    # needed to achieve a win in a game
     def checkWin(self, connectN, row, col, piece):
         count = 0
+        # Check horizontal connections
+        for c in range(self._cols):
+            if self._grid[row][c] == piece:
+                count+=1
+            else:
+                count = 0
+            if count == connectN:
+                return True
+        # Check vertical connections
+        for r in range(self._rows):
+            if self._grid[r][col] == piece:
+                count+=1
+
+            else:
+                count = 0
+            if count == connectN:
+                return True
+            
+        # check diagonal connections
+        count = 0
+        for r in range (self._rows):
+            # get col position of diagonal
+            c = row+col-r
+            if c >= 0 and c < self._cols and self._grid[r][c] == piece:
+                count+=1
+            else:
+                count = 0
+            if count == connectN:
+                return True
+            
+        # check anti-diagonal connections
+        count = 0
+        for r in range(self._rows):
+            c = col - row + r
+            if c >=0 and c < self._cols and self._grid[r][c] == piece:
+                count+=1
+            else:
+                count = 0
+            if count == connectN:
+                return True
