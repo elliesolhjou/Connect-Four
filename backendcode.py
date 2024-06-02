@@ -146,3 +146,11 @@ class Game:
         
         print(" ")
 
+    # define move rules
+    def playMoves(self, player):
+        self.printBoard()
+        print(f"{player.getNames()}'s turn")
+        colCount = self._grid.getColumnsCount()
+        moveColumn = int(input(f"Enter Column number between {0} and {colCount-1} to add token"))
+        moveRow = self._grid.placePieces(moveColumn, player.getPieceColor())
+        return (moveRow, moveColumn)
